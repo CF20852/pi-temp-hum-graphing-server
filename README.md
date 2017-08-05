@@ -13,6 +13,8 @@ Files
 * server4.js - NodeJS server, returns temperature as JSON, logs to database and serves other static files
 * temphum_logr4.htm - example client front-end showing time-series from database records
 * build_database4.sh - shell script to create database schema
+* run_rtl433.sh - runs the rtl_433 demodulator to update the Acurite readings in temp.json
+* thserver.service - starts the server on boot and restarts it if necessary
 
 Dependencies
 ------------
@@ -25,11 +27,17 @@ Dependencies
 Install/Setup
 -------------
 1. Run `npm install` in this directory
-2. Run `load_gpio.sh` script as root to load kernel modules for the DS18B20 sensor
-3. Run the `build_database4.sh` script to create "piTemps.db". Note this wil drop any existing database of the same name in the directory
-4. Open "server4.js" and edit line 35 to read the serial number of your sensor in /sys/bus.
-5. In a terminal run "node server4.js" to start the server.
-6. Open a web browser on the Pi and go to http://localhost:8087/temphum_logr4.htm to see a plot logged temperature. 
+2. Install SQLite3, node-sqlite3, node-static, rtl-sdr, and rtl_433
+3. Run `load_gpio.sh` script as root to load kernel modules for the DS18B20 sensor
+4. Run the `build_database4.sh` script to create "piTemps.db". Note this wil drop any existing database of the same name in the directory
+5. Open "server4.js" and edit line 45 to read the serial number of your DS18B20 sensor in /sys/bus.
+6. Copy "thserver.service" to /etc/systemd/system/.
+7. Run sudo systemctl enable thserver to enable the service.
+8. Edit crontab to add the following:
+   MAILTO=""
+   */5 * * * * /home/pi/PiThermServer/run_rtl433.sh > /dev/null
+9. Reboot the Pi.
+10. Open a web browser on the Pi and go to http://localhost:8087/temphum_logr4.htm to see a plot logged temperature. 
 
 References
 ----------
