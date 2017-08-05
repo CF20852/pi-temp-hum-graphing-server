@@ -33,9 +33,9 @@ Install/Setup
 5. Open "server4.js" and edit line 45 to read the serial number of your DS18B20 sensor in /sys/bus.
 6. Copy "thserver.service" to /etc/systemd/system/.
 7. Run sudo systemctl enable thserver to enable the service.
-8. Edit crontab to add the following:
-   MAILTO=""
-   */5 * * * * /home/pi/PiThermServer/run_rtl433.sh > /dev/null
+8. Edit crontab to add the following:<br>
+   MAILTO=""<br>
+   */5 * * * * /home/pi/PiThermServer/run_rtl433.sh > /dev/null<br>
 9. Reboot the Pi.
 10. Open a web browser on the Pi and go to http://localhost:8087/temphum_logr4.htm to see a plot logged temperature. 
 
