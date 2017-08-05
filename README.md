@@ -33,7 +33,7 @@ Install/Setup
 5. Open "server4.js" and edit line 45 to read the serial number of your DS18B20 sensor in /sys/bus.
 6. Copy "thserver.service" to /etc/systemd/system/.
 7. Run sudo systemctl enable thserver to enable the service.
-8. Edit crontab to add the following:<br>
+8. Edit crontab to add the following to run rtl_433 every 5 minutes for 45 seconds to update temp.json:<br>
    MAILTO=""<br>
    */5 * * * * /home/pi/PiThermServer/run_rtl433.sh > /dev/null<br>
 9. Reboot the Pi.
