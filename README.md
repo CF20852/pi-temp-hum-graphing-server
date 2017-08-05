@@ -44,4 +44,5 @@ References
 ----------
 http://www.cl.cam.ac.uk/freshers/raspberrypi/tutorials/temperature/<br>
 https://github.com/talltom/PiThermServer<br>
+http://osmocom.org/projects/sdr/wiki/rtl-sdr<br>
 https://github.com/merbanan/rtl_433<br>
