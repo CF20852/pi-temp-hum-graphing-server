@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="temphumstyle.css">
+    <title>PiThermServer - Plot of logged temperature</title>
+    <meta name="description" content="Plot of attic temperature and outside temperature/humidity/dewpoint">
+    <meta name="author" content="Tom Holderness, modified by Chip Fleming">
+    <meta name="version" content="0.2">
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+      var chartTemp; // global chart variable
+      // Get data from server in JSON format (query time series when sensors were running).
+      function getTempData(){
+        $.getJSON('/temperature_query.json?num_obs=-1&start_date=2017-08-03T20:00', function(data){
+          var series1 = {
+            name:  'Attic Temp',  // name for the legend
+            id: 'series1',        // self-explanatory
+            type: 'line',         // type of graph for this parameter
+            data: []              // array of something
+          };
+
+          var i = 0;
+          // Iterate JSON data series and add to plot
+          while (data.th_record[0][i]) {
+            series1.data.push([data.th_record[0][i].unix_time, data.th_record[0][i].ds18b20]);
+            i++;
+          }
+          chartTemp.addSeries(series1);
+
+          var series2 = {
+            name:  'Outside Temp',
+            id: 'series2',
+            type: 'line',
+            data: []
+          };
+          var i = 0;
+          // Iterate JSON data series and add to plot
+          while (data.th_record[0][i]) {
+            series2.data.push([data.th_record[0][i].unix_time, data.th_record[0][i].acuriteTemp]);
+            i++;
+          }
+          chartTemp.addSeries(series2);
+
+          var series3 = {
+            name:  'Outside Dewpoint',
+            id: 'series3',
+            type: 'line',
+            data: []
+          };
+          var i = 0;
+          // Iterate JSON data series and add to plot
+          while (data.th_record[0][i]) {
+            series3.data.push([data.th_record[0][i].unix_time, data.th_record[0][i].acuriteDP]);
+            i++;
+          }
+          chartTemp.addSeries(series3);
+        })
+      }
+    </script>
+    
+    <script type="text/javascript">
+      var chartHum; // global chart variable
+      // Get data from server in JSON format (query time series when sensors were running).
+      function getHumData(){
+        $.getJSON('/temperature_query.json?num_obs=-1&start_date=2017-08-03T20:00', function(data){
+          var series4 = {
+            name:  'Outside Humidity',  // name for the legend
+            id: 'series4',              // self-explanatory
+            type: 'line',               // type of graph for this parameter
+            data: []                    // array of something
+          };
+          var i = 0;
+          // Iterate JSON data series and add to plot
+          while (data.th_record[0][i]) {
+            series4.data.push([data.th_record[0][i].unix_time, data.th_record[0][i].acuriteHum]);
+            i++;
+          }
+          chartHum.addSeries(series4);
+        })
+      }
+    </script>
+
+    <script type="text/javascript">
+      // Configure the plot
+      $(document).ready(function() {
+        chartTemp = new Highcharts.Chart({
+        //$('#chart').highcharts({
+          chart: {
+            renderTo:  'tempChart',
+            zoomType: 'x',
+            spaceRight: 20,
+            events: {load: getTempData()}
+          },
+          title: {
+            text: 'Plot of temperatures from DS18B20 sensor in attic and Acurite temperature/humidity sensor under deck'
+          },
+
+          subtitle: {
+            text: 'Click and drag in the plot area to zoom in',
+            align: 'right'
+          },
+
+          xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            maxZoom: 20 * 1000,
+            title: {
+                text: 'Time',
+                margin: 15
+            }
+          },
+
+          yAxis: {  //primary axis
+            linewidth:  1,
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            showFirstLabel: true,
+            title: {
+                text: 'Temperature \u00B0F',
+                margin: 15
+            },
+
+            floor: -20,
+            ceiling: 140
+          },
+
+          plotOptions: {
+            line: {
+              datalabels: {
+                enabled:  false
+              },
+              enableMouseTracking:  true
+            }
+          }
+        })        
+      })
+    </script>
+
+    <script type="text/javascript">
+      // Configure the plot
+      $(document).ready(function() {    
+        chartHum = new Highcharts.Chart({
+        //$('#chartHum').highcharts({
+          chart: {
+            renderTo: 'humChart',
+            zoomType: 'x',
+            spaceRight: 20,
+            events: {load: getHumData()}
+          },
+          title: {
+            text: 'Plot of relative humidity from Acurite temperature/humidity sensor under deck'
+          },
+
+          subtitle: {
+            text: 'Click and drag in the plot area to zoom in',
+            align: 'right'
+          },
+
+          xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            maxZoom: 20 * 1000,
+            title: {
+                text: 'Time',
+                margin: 15
+            }
+          },
+
+          yAxis: {  //primary axis
+            linewidth:  1,
+            minPadding: 0.2,
+            maxPadding: 0.2,
+            showFirstLabel: true,
+            title: {
+                text: 'Relative Humidity (%)',
+                margin: 15
+            },
+
+            floor: 0,
+            ceiling: 100
+          },
+
+          plotOptions: {
+            line: {
+              datalabels: {
+                enabled:  false
+              },
+              enableMouseTracking:  true
+            }
+          }
+        })
+      });
+    </script>      
+  </head>
+
+  <body>
+    <div id="tempChart" class="chart"></div>
+    <div class="spacer"></div>
+    <div id="humChart" class="chart"></div>
+  </body>
+</html>
