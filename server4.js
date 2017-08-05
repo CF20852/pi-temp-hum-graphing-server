@@ -211,4 +211,4 @@ console.log('Server is logging to database at '+msecs+'ms intervals');
 // Enable server
 server.listen(8087);
 // Log message
-console.log('Server running at http://mr6225.no-ip.org:8087/temphum_logr4.htm');
+console.log('Server running at http://localhost:8087/temphum_logr4.htm');
