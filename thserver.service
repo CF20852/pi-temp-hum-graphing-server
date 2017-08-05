@@ -1,0 +1,13 @@
+[Service]
+# start the temperature and humidity graphing server
+WorkingDirectory=/home/pi/PiThermServer
+ExecStart=/usr/local/bin/node /home/pi/PiThermServer/server4.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=server
+User=root
+Group=root
+Environment=NODE_ENV=production
+[Install]
+WantedBy=multi-user.target
