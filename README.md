@@ -35,7 +35,7 @@ Install/Setup
 7. Run `sudo systemctl enable thserver`to enable the service.
 8. Make run_rtl433.sh executable:  `chmod +x run_rtl433.sh`.
 9. Edit crontab to add the following to run rtl_433 every 5 minutes for 45 seconds to update temp.json:<br>
-   `MAILTO=""<br>`
+   `MAILTO=""`<br>
    `*/5 * * * * /home/pi/PiThermServer/run_rtl433.sh > /dev/null<br>`
 10. Reboot the Pi.  Wait a minute or two.
 11. Open a web browser on the Pi and go to 'http://localhost:8087/temphum_logr4.htm' to see a plot logged temperature. 
