@@ -1,4 +1,4 @@
-PiThermServer
+Raspberry Pi Temperature and Humidity Server
 =============
 
 Simple NodeJS server and SQLite3 logger for the DS18B20 digital temperature sensor on the Raspberry Pi.  Based on PiThermServer by Tomas Holderness.
