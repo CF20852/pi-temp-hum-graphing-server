@@ -14,7 +14,7 @@
       var chartTemp; // global chart variable
       // Get data from server in JSON format (query time series when sensors were running).
       function getTempData(){
-        $.getJSON('/temperature_query.json?num_obs=-1&start_date=2017-08-03T20:00', function(data){
+        $.getJSON('/temperature_query.json?num_obs=-1&start_date=2017-08-10T19:00', function(data){
           var series1 = {
             name:  'Attic Temp',  // name for the legend
             id: 'series1',        // self-explanatory
@@ -65,7 +65,7 @@
       var chartHum; // global chart variable
       // Get data from server in JSON format (query time series when sensors were running).
       function getHumData(){
-        $.getJSON('/temperature_query.json?num_obs=-1&start_date=2017-08-03T20:00', function(data){
+        $.getJSON('/temperature_query.json?num_obs=-1&start_date=2017-08-10T19:00', function(data){
           var series4 = {
             name:  'Outside Humidity',  // name for the legend
             id: 'series4',              // self-explanatory
