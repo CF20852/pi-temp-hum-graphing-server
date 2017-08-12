@@ -1,4 +1,4 @@
-// server7.js - NodeJS server for the PiThermServer project.
+// server8.js - NodeJS server for the PiThermServer project.
 
 /*
 
@@ -232,16 +232,12 @@ var server = http.createServer(
   }
 });
 
-// Start temperature logging (every 5 min).
-var msecs = (60 * 5) * 1000; // log interval duration in milliseconds
+// Start temperature logging (every 10 min).
+var msecs = (60 * 10) * 1000; // log interval duration in milliseconds
 logTemp(msecs);
 // Send a message to console
 console.log('Server is logging to database at '+msecs+'ms intervals');
 // Enable server
 server.listen(80);
 // Log message
-<<<<<<< HEAD:server8.js
-console.log('Server running at http://192.168.1.33:80');
-=======
-console.log('Server running at http://localhost:8087/temphum_logr4.htm');
->>>>>>> e956aeb4070f411e72f3108ace439db1ea3432fd:server4.js
+console.log('Server running at http://localhost:80/thlog.htm');
