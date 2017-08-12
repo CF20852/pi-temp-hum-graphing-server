@@ -1,7 +1,6 @@
 // server8.js - NodeJS server for the PiThermServer project.
 
 /*
-
 Parses data from DS18B20 temperature sensor and Acurite temperature and humidity sensor and serves as a JSON object.
 Uses node-static module to serve a plot of current temperature (uses highcharts).
 
