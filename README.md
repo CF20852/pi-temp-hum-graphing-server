@@ -10,8 +10,8 @@ A NodeJS server for the DS18B20 GPIO temperature sensor and the Acurite 06009RM 
 Files
 -----
 * load_gpio.sh - bash commands to load kernel modules
-* server4.js - NodeJS server, returns temperature as JSON, logs to database and serves other static files
-* temphum_logr4.htm - example client front-end showing time-series from database records
+* server8.js - NodeJS server, returns temperature as JSON, logs to database and serves other static files
+* thlog.htm - example client front-end showing time-series from database records
 * build_database4.sh - shell script to create database schema
 * run_rtl433.sh - runs the rtl_433 demodulator to update the Acurite readings in temp.json
 * thserver.service - starts the server on boot and restarts it if necessary
