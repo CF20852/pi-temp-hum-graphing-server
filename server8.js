@@ -240,4 +240,8 @@ console.log('Server is logging to database at '+msecs+'ms intervals');
 // Enable server
 server.listen(80);
 // Log message
+<<<<<<< HEAD:server8.js
 console.log('Server running at http://192.168.1.33:80');
+=======
+console.log('Server running at http://localhost:8087/temphum_logr4.htm');
+>>>>>>> e956aeb4070f411e72f3108ace439db1ea3432fd:server4.js
